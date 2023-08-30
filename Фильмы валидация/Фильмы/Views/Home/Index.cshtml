@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MovieApp.Models.MovieModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie List</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+</head>
+<body>
+    <h1 class="page-title">Фильмы - Фавориты</h1>
+    <a href="@Url.Action("Create", "Home")" class="create-link">
+        <div class="create-box">
+            <div class="plus-icon">+</div>
+        </div>
+    </a>
+   
+    @foreach (var movie in Model)
+    {
+        <div class="movie">
+            <img src="@movie.PosterUrl" alt="Movie Poster">
+            <div class="movie-info">
+                <h3 class="movie-title">@movie.Title</h3>
+                <p class="movie-details">
+                    Director: @movie.Director<br />
+                    Genre: @movie.Genre<br />
+                    Release Year: @movie.ReleaseYear
+                </p>
+                <p class="movie-description">@movie.Description</p>
+            </div>
+            <div class="movie-actions">
+                <a href="@Url.Action("Edit", "Home", new { id = movie.Id })" class="edit-link">Edit</a>
+                <a href="@Url.Action("Delete", "Home", new { id = movie.Id })" class="delete-link">Delete</a>
+            </div>
+        </div>
+    }
+
+    
+</body>
+</html>
