@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34009.444
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuestBook_Koval", "GuestBook_Koval.csproj", "{DDD6EAE9-83B3-4F32-B09B-80300FA93091}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection_Gbook", "..\DependencyInjection_Gbook\DependencyInjection_Gbook.csproj", "{2DE6381A-0F84-4F04-931E-61AE503BB3D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDD6EAE9-83B3-4F32-B09B-80300FA93091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDD6EAE9-83B3-4F32-B09B-80300FA93091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDD6EAE9-83B3-4F32-B09B-80300FA93091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDD6EAE9-83B3-4F32-B09B-80300FA93091}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DE6381A-0F84-4F04-931E-61AE503BB3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE6381A-0F84-4F04-931E-61AE503BB3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE6381A-0F84-4F04-931E-61AE503BB3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE6381A-0F84-4F04-931E-61AE503BB3D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38884612-C5AE-4066-A021-07B1793F2477}
+	EndGlobalSection
+EndGlobal

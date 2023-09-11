@@ -1,0 +1,105 @@
+﻿
+@model List<Message>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    a {
+        color: wheat;
+        text-decoration: none;
+    }
+
+        a:hover {
+            color: cornflowerblue;
+        }
+
+    body {
+        display: flex;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0;
+        padding: 10px;
+        background-image: url('123.jpg');
+        background-size: cover;
+        background-position: center;
+        background-color: transparent;
+        color: white;
+    }
+
+  background-color: transparent;
+        }
+
+       
+
+    .content {
+        flex-grow: 1;
+        padding: 20px;
+    }
+
+    .message-card {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+        .message-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Стили для логина отправителя */
+    .sender-username {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Стили для даты сообщения */
+    .message-date {
+        font-size: 14px;
+        color: gray;
+    }
+
+    .user-block {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        padding: 5px 10px;
+        color: red;
+    }
+</style>
+
+<div class="body">
+    @if (Context.Session.GetString("Login") == null)
+    {
+        <p>Войдите что бы оставлять сообщение!</p>
+    }
+    else
+    {
+        <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="SendMessage">Отправить сообщение</a>
+    }
+    @foreach (var userMessage in Model)
+    {
+        
+            <div class="message-card">
+            <span class="sender-username">@Html.DisplayFor(modelItem => userMessage.User.Login)</span>
+			<p class="message-date"> @Html.DisplayFor(modelItem => userMessage.MessageDate)</p>
+			<p> @Html.DisplayFor(modelItem => userMessage.MessageText)</p>                                      
+            </div>
+        
+        
+    }
+</div>
+
+
+
+
+
+

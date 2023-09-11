@@ -1,0 +1,21 @@
+﻿@{
+    Layout = null;
+}
+
+@inject DependencyInjection.Services.IMessageSender MessageSender
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @{
+        string message = MessageSender.Send();
+        @:
+        <h1>@message</h1>
+    }
+</body>
+</html>
