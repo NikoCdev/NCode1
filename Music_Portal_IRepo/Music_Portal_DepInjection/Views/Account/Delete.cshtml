@@ -1,0 +1,94 @@
+﻿@model Gbook.Models.Song
+
+@{
+    ViewBag.Title = "Удаление песни";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        text-align: center;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border-color:lightgreen;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: #fff;
+    }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+    .song-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    audio {
+        width: 100%;
+    }
+</style>
+<div class="container">
+    
+
+    <form asp-action="Delete" class="text-center">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="form-group">
+            <label asp-for="Title">Название песни:</label>
+            <input asp-for="Title" class="form-control" readonly />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Singer">Исполнитель:</label>
+            <input asp-for="Singer" class="form-control" readonly />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="GenreId">Жанр:</label>
+            <input asp-for="GenreId" class="form-control" readonly />
+        </div>
+
+        <div class="form-group">
+            <label>Аудиотрек:</label>
+            <audio controls>
+                <source src="@Url.Content(Model.AudioFile)" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="form-group">
+            <label>Изображение:</label>
+            <img src="@Url.Content(Model.ImageFile)" alt="Song Image" class="song-image img-fluid" />
+        </div>
+
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Удалить</button>
+    </form>
+</div>
