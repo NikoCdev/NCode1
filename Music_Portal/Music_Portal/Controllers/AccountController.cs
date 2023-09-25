@@ -341,7 +341,7 @@ namespace Gbook.Controllers
             }
             else
             {
-                // Если модель недопустима, загрузите список жанров и верните представление с ошибкой
+                
                 var genresList = _context.Genres.ToList();
                 ViewBag.GenresList = new SelectList(genresList, "Id", "Name");
 
