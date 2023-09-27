@@ -1,0 +1,92 @@
+﻿@model List<Gbook.Models.User>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ваш заголовок страницы</title>
+    <style>
+        /* Стили для body */
+        body {
+            background-image: url('b.jpg');
+            background-size: cover;
+            background-position: center;
+            background-color: transparent;
+          
+            color: #ffffff;  
+            font-family: Arial, sans-serif; 
+        }
+
+        /* Стили для таблицы */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.7); /* Фон для ячеек таблицы */
+        }
+
+        /* Стили для кнопок */
+        form {
+            display: inline;
+        }
+
+        button {
+            background-color: #007bff;
+            border: none;
+            color: #ffffff;
+            padding: 5px 10px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #5e4c99;
+            }
+    </style>
+</head>
+<body>
+    <table>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>
+                <strong>Login:</strong> @user.Login <br />
+                <strong>Status:</strong> @user.Status
+            </td>
+            @if (Context.Session.GetString("Status") == "Admin")
+            {
+                <td>
+                    @if (user.Status != "Admin")
+                    {
+                        <form method="post" asp-controller="Account" asp-action="DeleteUser">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit">Удалить</button>
+                        </form>
+
+                        <form method="post" asp-controller="Account" asp-action="UpgradeUser">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit">Повысить</button>
+                        </form>
+                    }
+                    @if (user.IsActivated == false)
+                    {
+                        <form method="post" asp-controller="Account" asp-action="ApproveRegistration">
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit">Одобрить регистрацию</button>
+                        </form>
+                    }
+                </td>
+            }
+        </tr>
+    }
+    </table>
+</body>
+</html>
