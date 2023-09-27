@@ -1,0 +1,179 @@
+﻿@model List<MusicPortal.Models.User>
+
+@{
+    ViewBag.Title = "Музыкальный сайт";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Основные стили страницы */
+    body {
+        background-image: url('111.jpg');
+        background-size: cover;
+        background-position: center;
+        background-color: transparent;
+        color: white;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100%;
+    }
+
+    .song-image {
+        width: 150px; 
+        height: 200px;
+        border-radius: 96%; 
+        object-fit: cover; 
+    }
+
+    /* Шапка страницы с навигацией и кабинетом пользователя */
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: cornflowerblue;
+    }
+
+    .user-cabinet {
+        font-size: 16px;
+        color: wheat;
+        text-decoration: none;
+    }
+
+        .user-cabinet:hover {
+            color: cornflowerblue;
+        }
+
+    /* Кнопки для выбора жанра музыки */
+    .genre-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .genre-button {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: wheat;
+        padding: 10px 20px;
+        margin: 0 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .genre-button:hover {
+            background-color: cornflowerblue;
+        }
+
+    .content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 20px;
+        padding: 20px;
+        
+    }
+
+    .song-card {
+        background-color: white; /* Цвет фона блока */
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px;
+        width: 300px;
+        transition: transform 0.2s, box-shadow 0.2s, width 0.2s; 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    }
+    
+
+    .song-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: cornflowerblue;
+    }
+    
+    .song-singer {
+        font-size: 18px;
+        font-weight: bold;
+        color: wheat;
+    }
+
+    .song-details {
+        font-size: 14px;
+        color: white;
+    }
+
+    /* Стили для фотографии */
+    .song-image {
+        width: 100%; 
+        height: auto;
+        border-radius: 10px; 
+        object-fit: cover; 
+    }
+
+    .song-actions {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .song-action-link {
+        text-decoration: none;
+        color: gray;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+        .song-action-link:hover {
+            color: red;
+            
+            cursor: pointer;
+        }
+</style>
+
+
+<div class="content">
+    @foreach (var song in ViewBag.DataLists.Songs)
+    {
+        <div class="song-card">
+            <p class="song-title">@song.Title - @song.Singer</p>
+            <p class="song-title">@song.Genre.Name</p>
+            @if (!string.IsNullOrEmpty(song.ImageFile))
+            {
+                <img src="@Url.Content(song.ImageFile)" alt="Song Image" class="song-image" />
+            }
+
+            <audio controls class="song-player">
+                <source src="@Url.Content(song.AudioFile)" type="audio/mpeg">
+            </audio>
+
+            @if (Context.Session.GetString("Status") == "Admin")
+            {
+                <div class="song-actions">                  
+                    <a asp-controller="Account" asp-action="EditSong" asp-route-id="@song.Id" class="song-action-link edit-link">Редактировать</a>
+                    <a asp-controller="Account" asp-action="Delete" asp-route-id="@song.Id" class="song-action-link edit-link">Удалить</a>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<script>
+    const audioPlayers = document.querySelectorAll('.song-player');
+
+    audioPlayers.forEach(player => {
+        player.addEventListener('play', () => {
+            audioPlayers.forEach(otherPlayer => {
+                if (otherPlayer !== player && !otherPlayer.paused) {
+                    otherPlayer.pause();
+                }
+            });
+        });
+    });
+</script>
+

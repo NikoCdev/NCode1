@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ASP.NET Core MVC Application</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/StudentsMVC.styles.css" asp-append-version="true" />
+    <style>
+        /* Общие стили для панели навигации */
+        .navbar {
+            background-color: #333; /* Цвет фона */
+            color: #fff; /* Цвет текста */
+            padding: 0; /* Убираем внутренние отступы */
+        }
+
+            /* Стили для элементов в панели навигации */
+            .navbar a.navbar-brand,
+            .navbar a.nav-link {
+                color: #fff; /* Цвет ссылок */
+                text-align: center; /* Выравнивание текста по центру */
+                display: inline-block; /* Размещаем элементы в ряд */
+                padding: 10px 15px; /* Внутренние отступы слева и справа */
+                border-left: 1px solid #555; /* Обводка между элементами */
+                text-decoration: none; /* Убираем подчеркивание ссылок */
+            }
+
+                .navbar a.navbar-brand:hover,
+                .navbar a.nav-link:hover {
+                    background-color: #555; /* Цвет фона при наведении */
+                }
+
+        /* Дополнительные стили для кнопки "Найти" */
+        .search-box {
+            display: inline-block; /* Размещаем элементы в ряд */
+            padding: 10px 15px; /* Внутренние отступы слева и справа */
+        }
+
+            .search-box input[type="text"] {
+                background-color: #fff; /* Цвет фона поля ввода */
+                color: #333; /* Цвет текста в поле ввода */
+                border-radius: 20px; /* Закругление углов */
+                padding: 10px 20px; /* Внутренние отступы слева и справа */
+                margin-right: 10px; /* Сдвигаем поле вправо */
+                border: none; /* Убираем рамку */
+            }
+
+            .search-box button.btn-primary {
+                background-color: #007bff; /* Цвет фона кнопки */
+                border-color: #007bff; /* Цвет рамки кнопки */
+            }
+
+                .search-box button.btn-primary:hover {
+                    background-color: #0056b3; /* Цвет фона кнопки при наведении */
+                    border-color: #0056b3; /* Цвет рамки кнопки при наведении */
+                }
+
+        /* Стили для блока аккаунта */
+        .account-box {
+            display: inline-block; /* Размещаем элементы в ряд */
+            padding: 10px 15px; /* Внутренние отступы слева и справа */
+        }
+
+        /* Стили для приветствия пользователя */
+        .welcome-message {
+            display: inline-block; /* Размещаем элементы в ряд */
+            padding: 10px 15px; /* Внутренние отступы слева и справа */
+            font-weight: bold; /* Жирный текст */
+        }
+
+        /* Стили для кнопки "Добавить жанр" */
+        .genre-button {
+            background-color: #007bff; /* Цвет фона кнопки */
+            color: #fff; /* Цвет текста кнопки */
+            padding: 10px 15px; /* Внутренние отступы слева и справа */
+            border: none; /* Убираем рамку кнопки */
+            text-decoration: none; /* Убираем подчеркивание ссылки */
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: cornflowerblue;
+        }
+
+            .genre-button:hover {
+                background-color: #0056b3; /* Цвет фона кнопки при наведении */
+            }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Главная страница</a>
+                <div class="search-box">                  
+                    <input type="text" class="form-control" placeholder="Поиск..." />                 
+                </div>
+                <div class="account-box">
+                    @if (Context.Session.GetString("Login") == null)
+                    {
+                        <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Register">Регистрация</a>
+                        <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="Login">Авторизация</a>
+
+                        
+                    }
+                    else
+                    {
+                        <span class="welcome-message">Здравствуйте, @Context.Session.GetString("Login") </span>
+                        @if (Context.Session.GetString("Status") == "Admin")
+                        {
+                            <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="AddGenre">Добавить жанр</a>
+                            <a class="navbar-brand" asp-action="Users">Пользователи</a>
+                        }
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Logout">Выход</a>
+
+                        @if (Context.Session.GetString("Status") == "Admin" || Context.Session.GetString("Status") == "User")
+                        {
+
+                            <a class="navbar-brand" asp-area="" asp-controller="Account" asp-action="AddSong">Добавить песню</a>
+                        }
+
+                        
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

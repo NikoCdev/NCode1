@@ -1,0 +1,86 @@
+﻿@model Gbook.Models.Song
+@{
+    ViewBag.Title = "Добавить песню";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form-container {
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        border-radius: 20px;
+        padding: 10px 20px;
+        color: #fff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+</style>
+
+<div class="form-container">
+    <form asp-controller="Account" asp-action="AddSong" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="GenreId">Выберите жанр:</label>
+            <select class="form-control" asp-for="GenreId">
+                <option value="">Выберите жанр</option>
+                @foreach (var genre in ViewBag.GenresList)
+                {
+                    <option value="@genre.Value">@genre.Text</option>
+                }
+            </select>
+            <span asp-validation-for="GenreId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Title">Название песни:</label>
+            <input type="text" class="form-control" asp-for="Title">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Singer">Исполнитель:</label>
+            <input type="text" class="form-control" asp-for="Singer">
+            <span asp-validation-for="Singer" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="AudioFile">Загрузите аудиотрек:</label>
+            <input type="file" class="form-control" asp-for="AudioFile" name="uploadedAudio">
+            <span asp-validation-for="AudioFile" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="ImageFile">Загрузите изображение:</label>
+            <input type="file" class="form-control" asp-for="ImageFile" name="uploadedPhoto">
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Добавить песню</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
